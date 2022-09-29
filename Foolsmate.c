@@ -10,6 +10,7 @@
 /* variables *************************************************************/
 
 //adding a tester comment to see if this works
+//adding another comment to see if this works
 /*TO DO
 
 -timer for each player and compare time if draw  (check hello.c)
