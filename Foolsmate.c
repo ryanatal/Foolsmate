@@ -2,23 +2,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+#include <stdbool.h>
 #include "Functions.h"
 #define ROWS    6
 #define COLS    7
 #define FOUR    4
 
-//tester for first-branch
-//tester commit
-//adding a tester comment to see if this works
-//adding another comment to see if this works
 
 /*TO DO
-
--timer for each player and compare time if draw  (check hello.c)
+- specifications ie requirements and effects
+!!!!!!!!!!!!!!
+- make sure all functions are commented
+-timer for each player and compare time if draw  (check comment below)
 -input leaking to next scan
--gets() error is unsafe remove from terminal output
-
-
 */
 
 /*
@@ -55,107 +52,25 @@ char name2[20];
 //tie between two players sequence
 //ACBDEFGGFCEDEFACBACBDCGDAEBGFGDFGEFDEAABBCC
 
+
 /* main function *************************************************************/
 
 int main()
 {
-    
-    printf("\nWelcome to connect Four!\n");
-    printf("Please enter your names: \n");
-
-    printf("Player 1: ");
-// we need to find a new way to get the names
-//gets() is unsafe and leaks to next scan
-//as well as gets causes an error in terminal since it is a dangerous function
-    gets(name1);
-    while(checkString(name1) == 0) {
-    printf("Invalid input. \nPlease enter a valid string with no spaces. \n");
-    printf("Player 1: ");
-    gets(name1);
-    }
-
-    printf("Player 2: ");
-    gets(name2);
-    while(checkString(name2) == 0) {
-    printf("Invalid input. \nPlease enter a valid string with no spaces. \n");
-    printf("Player 2: ");
-    gets(name2);
-    }
-
-    printf("\nHello %s, you are playing with %s \n", name1, name2);
-
-/* ----------------------- */
-
-    printf("Randomizing who goes first...\n");
-    int starter = randomizer();
-    if (starter==0){
-        printf("\n\n%s goes first!\n\n", name1);
-        disc='1';
-    }
-    else{
-        printf("\n\n%s goes first!\n\n", name2);
-        disc='2';
-        /*switches the discs*/
-    }
-
-//on each if and else we change disc==1 to disc==2 and vice versa depending on what we need and then
-//we loop and call choose();
-/* ----------------------- */
-
+    Players();
+    Coin();
     init_scores();
     board();
-    
-
-    while (1)
-    {
-        if ((scores[0][0] != '0') && (scores[0][1] != '0') && (scores[0][2] != '0') && (scores[0][3] != '0')
-         && (scores[0][4] != '0') && (scores[0][5] != '0') && (scores[0][6] != '0'))
-            {
-                printf("\nGame ends in draw.\n\n");
-                break;
-            }
-        if (disc=='1')
-        {
-            printf("\n%s, please choose a column: ", name1);
-        }
-        else
-        {
-            printf("\n%s, please choose a column: ", name2);
-        }
-        choose();
-        printf("\n\n");
-        board();
-        if (check('1'))
-        {
-            printf("\n\n%s wins!\n\n", name1);
-            break;  
-        }
-        if (check('2'))
-        {
-            printf("\n\n%s wins!\n\n", name2);
-            break;  
-        }   
-    }
-    
-    return 0; 
+    Conditions();
 }
 
 /* end of main function *************************************************************/
 
+/* ***********************************************************************/
+/* ***********************************************************************/
+
 /* helper functions **********************************************************/
 
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
-/* ***********************************************************************/
 void init_scores()
 {
     // fill the scores with the empty character:
@@ -169,7 +84,6 @@ void init_scores()
         }
     }
 }
-
 
 void board()
 {
@@ -201,6 +115,8 @@ void choose()
     // use %s to read as string
     // my idea: create  a decoy scanf that collects all remaining chars so that when
     //system calls it it only takes one character
+    //works if input is a number
+    //create case if input is a letter
     char c;
     
     while (1)
@@ -435,3 +351,81 @@ int randomizer(){
     return result= rand() % 2;
   }
 
+void Players(){
+
+
+    printf("\nWelcome to connect Four!\n");
+    printf("Please enter your names: \n");
+
+    printf("Player 1: ");
+    // we need to find a new way to get the names
+    //gets() is unsafe and leaks to next scan
+    //as well as gets causes an error in terminal since it is a dangerous function
+    scanf("%s", &name1);
+    while(checkString(name1) == 0) {
+    printf("Invalid input. \nPlease enter a valid string with no spaces. \n");
+    printf("Player 1: ");
+    scanf("%s", &name1);
+    }
+
+    printf("Player 2: ");
+    scanf("%s", &name2);
+    while(checkString(name2) == 0) {
+    printf("Invalid input. \nPlease enter a valid string with no spaces. \n");
+    printf("Player 2: ");
+    scanf("%s", &name2);
+    }
+
+    printf("\nHello %s, you are playing with %s \n", name1, name2);
+
+}
+
+void Coin(){
+    //on each if and else we change disc==1 to disc==2 and vice versa depending on what we need and then
+    //we loop and call choose();
+    printf("Randomizing who goes first...\n");
+    int starter = randomizer();
+    if (starter==0){
+        printf("\n\n%s goes first!\n\n", name1);
+        disc='1';
+    }
+    else{
+        printf("\n\n%s goes first!\n\n", name2);
+        disc='2';
+        /*switches the discs*/
+    }
+}
+
+void Conditions(){
+    while (1)
+    {
+        if ((scores[0][0] != '0') && (scores[0][1] != '0') && (scores[0][2] != '0') && (scores[0][3] != '0')
+         && (scores[0][4] != '0') && (scores[0][5] != '0') && (scores[0][6] != '0'))
+            {
+                printf("\nGame ends in draw.\n\n");
+                break;
+            }
+        if (disc=='1')
+        {
+            printf("\n%s, please choose a column: ", name1);
+        }
+        else
+        {
+            printf("\n%s, please choose a column: ", name2);
+        }
+        choose();
+        printf("\n\n");
+        board();
+        if (check('1'))
+        {
+            printf("\n\n%s wins!\n\n", name1);
+            break;  
+        }
+        if (check('2'))
+        {
+            printf("\n\n%s wins!\n\n", name2);
+            break;  
+        }   
+    }
+    
+}
