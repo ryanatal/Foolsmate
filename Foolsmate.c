@@ -7,11 +7,11 @@
 #define COLS    7
 #define FOUR    4
 
-/* variables *************************************************************/
 //tester for first-branch
 //tester commit
 //adding a tester comment to see if this works
 //adding another comment to see if this works
+
 /*TO DO
 
 -timer for each player and compare time if draw  (check hello.c)
@@ -21,8 +21,30 @@
 
 */
 
+/*
+timer code
+// main function to find the execution time of a C program
+// use clock to count cpu time
+int main()
+{
+    char name[20];
+    // start timer
+    time_t begin = time(NULL);
+ 
+    // do some stuff here
+    sleep(2);
+    printf("Hello World!");
+    scanf("%s", name);
+    time_t end = time(NULL);
+ 
+    // calculate elapsed time by finding difference (end - begin)
+    printf("The elapsed time is %ld seconds", (end - begin));
+ 
+    return 0;
+}
+*/
 
-
+/* variables *************************************************************/
 char scores[ROWS][COLS];
 char header[] = "  A   B   C   D   E   F   G  ";
 char horbar[] = "|---|---|---|---|---|---|---|";
