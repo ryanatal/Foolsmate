@@ -14,32 +14,10 @@
 - specifications ie requirements and effects
 !!!!!!!!!!!!!!
 - make sure all functions are commented
--timer for each player and compare time if draw  (check comment below)
 -input leaking to next scan
 */
 
-/*
-timer code
-// main function to find the execution time of a C program
-// use clock to count cpu time
-int main()
-{
-    char name[20];
-    // start timer
-    time_t begin = time(NULL);
- 
-    // do some stuff here
-    sleep(2);
-    printf("Hello World!");
-    scanf("%s", name);
-    time_t end = time(NULL);
- 
-    // calculate elapsed time by finding difference (end - begin)
-    printf("The elapsed time is %ld seconds", (end - begin));
- 
-    return 0;
-}
-*/
+
 
 /* variables *************************************************************/
 char scores[ROWS][COLS];
@@ -49,7 +27,12 @@ int bin = 0;
 char disc;
 char name1[20];
 char name2[20];
-//tie between two players sequence
+
+time_t begin, end;
+int time1 = 0;
+int time2 = 0;
+
+
 //ACBDEFGGFCEDEFACBACBDCGDAEBGFGDFGEFDEAABBCC
 
 
@@ -118,7 +101,9 @@ void choose()
     //works if input is a number
     //create case if input is a letter
     char c;
-    
+    begin=0;
+    end=0;
+    time(&begin);
     while (1)
     {
           
@@ -163,6 +148,15 @@ void choose()
         if ((bin >= 0 && bin <= 6) && (scores[0][bin] == '0'))
         {
             fill_bin();
+            time(&end);
+                if (disc == '1')
+                {
+                    time1 = time1 + difftime(end, begin);
+                }
+                else
+                {
+                    time2 = time2 + difftime(end, begin);
+                }
             if (disc == '1')
             {
                 disc='2';
@@ -171,6 +165,7 @@ void choose()
             {
                 disc='1';
             }
+            
             break;
         }
         if ((bin >= 0 && bin <= 6) && (scores[0][bin] != '0'))
@@ -399,10 +394,19 @@ void Coin(){
 void Conditions(){
     while (1)
     {
-        if ((scores[0][0] != '0') && (scores[0][1] != '0') && (scores[0][2] != '0') && (scores[0][3] != '0')
-         && (scores[0][4] != '0') && (scores[0][5] != '0') && (scores[0][6] != '0'))
+        if (Tie())
             {
                 printf("\nGame ends in draw.\n\n");
+                printf("Winner is based on speed of input:\n");
+                if (time1>time2){
+                    printf("%s wins!\n", name2);
+                }
+                else if (time2>time1){
+                    printf("%s wins!\n", name1);
+                }
+                else{
+                    printf("It's a tie!\n");
+                }
                 break;
             }
         if (disc=='1')
@@ -428,4 +432,13 @@ void Conditions(){
         }   
     }
     
+}
+
+bool Tie(){
+    for (int i=0; i<7; i++){
+        if (scores[0][i] == '0'){
+            return false;  //The board is not full
+        }
+    }
+    return true;    //The board is full
 }

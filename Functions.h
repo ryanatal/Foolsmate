@@ -8,3 +8,4 @@ int checkString(char str1[]);
 int randomizer();
 void Coin();
 void Conditions();
+bool Tie();
