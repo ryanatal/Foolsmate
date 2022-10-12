@@ -21,8 +21,7 @@
 
 /* variables *************************************************************/
 char scores[ROWS][COLS];
-char header[] = "  A   B   C   D   E   F   G  ";
-char horbar[] = "|---|---|---|---|---|---|---|";
+
 int bin = 0;
 char disc;
 char name1[20];
@@ -70,10 +69,11 @@ void init_scores()
 
 void board()
 {
+    char header[] = "  A   B   C   D   E   F   G  ";
+    char horbar[] = "|---|---|---|---|---|---|---|";
     // print the board and the scores according to current game:
     printf("%s\n", header);
     printf("%s\n", horbar);
-    
     int i, j;
     
     for (i = 0; i < ROWS; i++)
@@ -93,22 +93,20 @@ void choose()
 
     //getchar();
     //scanf(_%S);
-    //scanf("%c", &bin);
-    //get_s
     // use %s to read as string
     // my idea: create  a decoy scanf that collects all remaining chars so that when
     //system calls it it only takes one character
     //works if input is a number
     //create case if input is a letter
     char c;
+    char trash;
     begin=0;
     end=0;
     time(&begin);
     while (1)
     {
-          
         printf("\nChoose bin: ");
-        scanf(" %c", &c);
+        scanf(" %s", &c);
         switch(c)
         {
             case 'A':
