@@ -13,16 +13,12 @@
 /*TO DO
 - specifications ie requirements and effects
 !!!!!!!!!!!!!!
-- make sure all functions are commented
--input leaking to next scan
 */
 
 
 
 /* variables *************************************************************/
 char scores[ROWS][COLS];
-char header[] = "  A   B   C   D   E   F   G  ";
-char horbar[] = "|---|---|---|---|---|---|---|";
 int bin = 0;
 char disc;
 char name1[20];
@@ -56,6 +52,10 @@ int main()
 
 void init_scores()
 {
+    /*
+    requirement: n/a
+    effect: initializes the scores array with spaces
+    */
     // fill the scores with the empty character:
     int i, j;
     
@@ -70,10 +70,16 @@ void init_scores()
 
 void board()
 {
-    // print the board and the scores according to current game:
+    /*
+    requirement: n/a
+    effect: prints the board
+    */
+    char header[] = "  A   B   C   D   E   F   G  ";
+    char horbar[] = "|---|---|---|---|---|---|---|";
+
+    // print the board and the scores according to current game
     printf("%s\n", header);
     printf("%s\n", horbar);
-    
     int i, j;
     
     for (i = 0; i < ROWS; i++)
@@ -89,28 +95,25 @@ void board()
 
 void choose()
 {
-    // choose A B C D E F G:
+    /*
+    requirement: choose A B C D E F G
+    effects: fills the bin with the chosen column
+            / ask again if input is wrong
+            / ask again if column is full
+            / records time in case game Draws
+    */
 
-    //getchar();
-    //scanf(_%S);
-    //scanf("%c", &bin);
-    //get_s
-    // use %s to read as string
-    // my idea: create  a decoy scanf that collects all remaining chars so that when
-    //system calls it it only takes one character
-    //works if input is a number
-    //create case if input is a letter
     char c;
     begin=0;
     end=0;
-    time(&begin);
+    time(&begin);   //timer begins
+
     while (1)
     {
-          
         printf("\nChoose bin: ");
-        scanf(" %c", &c);
+        scanf(" %s", &c);
         switch(c)
-        {
+        {       //changes bin depending on First Index of inputted Character.
             case 'A':
             case 'a':
                 bin = 0;
@@ -148,17 +151,17 @@ void choose()
         if ((bin >= 0 && bin <= 6) && (scores[0][bin] == '0'))
         {
             fill_bin();
-            time(&end);
+            time(&end); //end timer
                 if (disc == '1')
-                {
+                {   //increment timer for player disc 1
                     time1 = time1 + difftime(end, begin);
                 }
                 else
-                {
+                {   //increment timer for player disc 2
                     time2 = time2 + difftime(end, begin);
                 }
             if (disc == '1')
-            {
+            {   //replace current disc from 1 to 2 and vice versa
                 disc='2';
             }
             else
@@ -169,7 +172,7 @@ void choose()
             break;
         }
         if ((bin >= 0 && bin <= 6) && (scores[0][bin] != '0'))
-        {
+        {   //if column is full, ask again
             printf("\nThis bin is full! Try again.\n\n");
             board();
         }
@@ -179,8 +182,12 @@ void choose()
 
 void fill_bin()
 {
-    // fills the bin according to what's already in there:
-    int level ;     /* lowest level or bottom of the board */
+    /*
+    requirement: n/a
+    effect: fills the bin with the chosen column
+    */
+    // fills the bin according to what's already in there
+    int level ;     // lowest level or bottom of the board 
 
     for (level = ROWS-1; level >= 0; level--)
     {
@@ -194,6 +201,11 @@ void fill_bin()
 
 int check(char disc)
 {
+    /*
+    requirement: disc = 1 or 2
+    effect: checks if there are 4 discs of the same kind in a row/diagonal/vertical
+    */
+
     // checks for a 4-disc row, column or diagonal:
     
     
@@ -205,7 +217,7 @@ int check(char disc)
     |   |   | X | X | X | X |   |
     |   |   |   | X | X | X | X |
     
-     */
+    */
      
     int i, j, k;
     int count;
@@ -327,7 +339,11 @@ int check(char disc)
 }
     
 int checkString(char str1[]) {
-    int i, p;
+    /*
+    requirement: str1[] = string to be checked
+    effect: checks if player name input contains a White Space
+    */
+    int i, p;   
     p=strlen(str1);
     for (i = 0; i < p ; i++){
         if (str1[i]== ' ') {
@@ -338,16 +354,23 @@ int checkString(char str1[]) {
 }
 
 int randomizer(){
+    /*
+    requirement: n/a
+    effect: generates a random number between 0 and 1
+    */
     int i, n, result;
     time_t t;
     n = 1;
-   /* Intializes random number generator */
+    // Intializes random number generator 
     srand((unsigned) time(&t));
-    return result= rand() % 2;
+    return result= rand() % 2;  //returns 0 or 1 depending if random number is even or not
   }
 
 void Players(){
-
+    /*
+    requirement: n/a
+    effect: asks for player names and checks if they are valid
+    */
 
     printf("\nWelcome to connect Four!\n");
     printf("Please enter your names: \n");
@@ -376,8 +399,10 @@ void Players(){
 }
 
 void Coin(){
-    //on each if and else we change disc==1 to disc==2 and vice versa depending on what we need and then
-    //we loop and call choose();
+    /*
+    requirement: n/a
+    effect: Flips a coin to see who starts first
+    */
     printf("Randomizing who goes first...\n");
     int starter = randomizer();
     if (starter==0){
@@ -392,6 +417,12 @@ void Coin(){
 }
 
 void Conditions(){
+    /*
+    requirement: n/a
+    effect: Asks user to choose a column to drop their disc in
+            //checks if player won
+            // through draw or normal win
+    */
     while (1)
     {
         if (Tie())
@@ -400,9 +431,11 @@ void Conditions(){
                 printf("Winner is based on speed of input:\n");
                 if (time1>time2){
                     printf("%s wins!\n", name2);
+                    printf("%s won by %d Seconds!\n", name2, time1-time2);
                 }
                 else if (time2>time1){
                     printf("%s wins!\n", name1);
+                    printf("%s won by %d Seconds!\n", name1, time2-time1);
                 }
                 else{
                     printf("It's a tie!\n");
@@ -435,6 +468,10 @@ void Conditions(){
 }
 
 bool Tie(){
+    /*
+    requirement: n/a
+    effect: checks if the board is full
+    */
     for (int i=0; i<7; i++){
         if (scores[0][i] == '0'){
             return false;  //The board is not full
