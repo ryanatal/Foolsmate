@@ -5,15 +5,10 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "Functions.h"
+
 #define ROWS    6
 #define COLS    7
 #define FOUR    4
-
-
-/*TO DO
-- specifications ie requirements and effects
-!!!!!!!!!!!!!!
-*/
 
 
 
@@ -27,9 +22,6 @@ char name2[20];
 time_t begin, end;
 int time1 = 0;
 int time2 = 0;
-
-
-//ACBDEFGGFCEDEFACBACBDCGDAEBGFGDFGEFDEAABBCC
 
 
 /* main function *************************************************************/
