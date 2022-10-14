@@ -10,6 +10,44 @@
 #define COLS    7
 #define FOUR    4
 
+/*The following c code represents the connect 4 game between two players
+Each player has to input in a column a letter from A to G (A-B-C-D-E-F-G)
+which will fill the table with a token ( represented by 1 and 2 ) in the corresponding place.
+
+The objective of the game is to be the first to form a horizontal,
+vertical, or diagonal line of four of one's own tokens. 
+
+If a player wins the game, the program will print the winner.
+TEST CASES:
+The code runs for all the cases:
+
+1) If the player wins or loses:
+-Who wins:
+    First player wins
+    Second player wins
+-How does the player win:
+    Vertical:Insert the following letters: A-B-A-B-A-B-A
+    Horizontal:Insert the following letters: A-A-B-A-C-A-D
+    Upper diagonal:Insert the following letters: A-B-C-D-B-C-D-E-C-D-D
+    Lower diagonal: Insert the following letters: G-F-E-D-F-E-D-C-F-E-E
+    
+2) If the game is a draw:
+    The winner is based on the speed of the input of the letters: the faster player wins.
+    Insert the following letters: A-C-B-D-E-F-G-G-F-C-E-D-E-F-A-C-B-A-C-B-D-C-G-D-A-E-B-G-F-G-D-F-G-E-F-D-E-A-A-B-B-C-C
+
+
+3) If the player inputs a wrong input:
+
+-Wrong letter: 
+    Try inserting: H //The program will print that the letter is wrong and ask for another letter
+-Inputing a word: 
+    Try inserting: Hello //The program will print that the letter is wrong and ask for another letter since H is not a bin
+    Try inserting: Apple //It will take the first letter
+
+4)The Column is full: 
+    Try inserting: A-A-A-A-A-A-A //The program will print that the column is full and ask for another letter
+
+*/
 
 
 /* variables *************************************************************/
@@ -199,136 +237,46 @@ int check(char disc)
     */
 
     // checks for a 4-disc row, column or diagonal:
-    
-    
-    /* check for 4-disc rows
-    each row has 4 different ways to connect 4
-    
-    | X | X | X | X |   |   |   |
-    |   | X | X | X | X |   |   |
-    |   |   | X | X | X | X |   |
-    |   |   |   | X | X | X | X |
-    
-    */
-     
+   
     int i, j, k;
     int count;
-    int ways = 4;
-    
-    for (i = 0; i < ROWS; ++i)
-    {
-        for (j = 0; j < ways; ++j)
-        {
-            count = 0;
-            for (k = 0; k < FOUR; ++k)
-            {
-                if (scores[i][j + k] == disc) count++;
-            }
-            if (count == FOUR) return 1;
-        }
-    }
-    
-    
-    /* check for 4-disc columns 
-    each column has 3 different ways to connect 4 
-    
-    | X |   |   |
-    | X | X |   |
-    | X | X | X |
-    | X | X | X |
-    |   | X | X |
-    |   |   | X |
-    
-    */
-    
-    ways = 3;
-    
-    for (j = 0; j < COLS; ++j)
-    {
-        for (i = 0; i < ways; ++i)
-        {
-            count = 0;
-            for (k = 0; k < FOUR; ++k)
-            {
-                if (scores[i + k][j] == disc) count++;
-            }
-            if (count == FOUR) return 1;
-        }
-    }
-    
-    /* check for 4-disc diagonals 
-    
-      A B C D E F G
-    0| | | | | | | |
-    1| |\|\|\|\|\| |
-    2| |\|\|\|\|\| |
-    3| |\|\|\|\|\| |
-    4| |\|\|\|\|\| |
-    5| | | | | | | |
-    
-    */
-    
-    int ii, jj;
-    for (i = 1; i < ROWS-1; i++)
-    {
-        for (j = 1; j < COLS-1; j++)
-        {
-            
-            /* left-tilted diagonals */
-            count = 0;
-            // left-upwards:
-            for (ii = i, jj = j; (ii >= 0) || (jj >= 0); ii--, jj--)
-            {
-                if (scores[ii][jj] == disc)
-                {
-                    count++;
-                    if (count == FOUR) return 1;    
-                }
-                else
-                    break;
-            }
-            // right-downwards:
-            for (ii = i+1, jj = j+1; (ii <= ROWS-1) || (jj <= COLS-1); ii++, jj++)
-            {
-                if (scores[ii][jj] == disc)
-                {
-                    count++;
-                    if (count == FOUR) return 1;
-                }
-                else
-                    break;
-            }
-            
-            /* right-tilted diagonals */
-            count = 0;
-            // left-downwards:
-            for (ii = i, jj = j; (ii <= ROWS-1) || (jj >= 0); ii++, jj--)
-            {
-                if (scores[ii][jj] == disc)
-                {
-                    count++;
-                    if (count == FOUR) return 1;    
-                }
-                else
-                    break;
-            }
-            // right-upwards:
-            for (ii = i-1, jj = j+1; (ii >= 0) || (jj <= COLS-1); ii--, j++)
-            {
-                if (scores[ii][jj] == disc)
-                {
-                    count++;
-                    if (count == FOUR) return 1;
-                }
-                else
-                    break;
-            }
-            
+   
+   //checks for 4 in a row horizontally
+    for (int j = 0; j<=ROWS-3 ; j++ ){
+        for (int i = 0; i<COLS; i++){
+            if (scores[i][j] == disc && scores[i][j+1] == disc && scores[i][j+2] == disc && scores[i][j+3] == disc){
+                return 1;
+            }          
         }
     }
 
-    return 0;       
+   //checks for 4 in a row vertically
+    for (int i = 0; i<COLS-3 ; i++ ){
+        for (int j = 0; j<=ROWS; j++){
+            if (scores[i][j] == disc && scores[i+1][j] == disc && scores[i+2][j] == disc && scores[i+3][j] == disc){
+                return 1;
+            }          
+        }
+    }
+   
+   //checks for 4 in a row in the first diagonal
+    for (int i=3; i<COLS; i++){
+        for (int j=0; j<=ROWS-3; j++){
+            if (scores[i][j] == disc && scores[i-1][j+1] == disc && scores[i-2][j+2] == disc && scores[i-3][j+3] == disc)
+                return 1;
+        }
+    }
+
+    //checks for 4 in a row in the second diagonal
+    for (int i=3; i<COLS; i++){
+        for (int j=3; j<=ROWS; j++){
+            if (scores[i][j] == disc && scores[i-1][j-1] == disc && scores[i-2][j-2] == disc && scores[i-3][j-3] == disc)//diagonal
+                return 1;
+        }
+    }
+    return 0;
 }
+
     
 int checkString(char str1[]) {
     /*
