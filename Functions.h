@@ -1,3 +1,4 @@
+//Functions Header File
 void init_scores();
 void board();
 void choose();
