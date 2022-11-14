@@ -477,19 +477,19 @@ int MonteCarlomove(){
     requirement: n/a
     effect: calculates the best move using Monte Carlo Tree Search
     */
-    int best = -1000;
+    int best = -1000;   
     int bestMove = 0;
     int score = 0;
-    for (int i=0; i<7; i++){
-        if (scores[0][i] == '0'){
-            for (int j=5; j>=0; j--){
-                if (scores[j][i] == '0'){
-                    scores[j][i] = '1';
-                    score = MonteCarlo(0);
-                    scores[j][i] = '0';
-                    if (score > best){
-                        best = score;
-                        bestMove = i;
+    for (int i=0; i<7; i++){    //for each possible move
+        if (scores[0][i] == '0'){   //if the column is not full
+            for (int j=5; j>=0; j--){   //find the lowest empty row
+                if (scores[j][i] == '0'){   //if the row is empty
+                    scores[j][i] = '1'; //drop the disc
+                    score = MonteCarlo(0);  //calculate the score
+                    scores[j][i] = '0'; //undo the move
+                    if (score > best){  //if the score is better than the best score
+                        best = score;   //update the best score
+                        bestMove = i;   //update the best move
                     }
                     break;
                 }
@@ -497,4 +497,68 @@ int MonteCarlomove(){
         }
     }
     return bestMove;
+}
+
+int AlphaBeta(int depth, int turn, int alpha, int beta){
+    /*
+    requirement: depth = depth of the tree
+                 turn = 1 if it is the AI's turn, 0 if it is the player's turn
+                 alpha = the best score the AI can get
+                 beta = the best score the player can get
+    effect: checks the MinMax of each possible move, calculating the best move
+    */
+   
+    int score = 0;
+    if (Tie()) return 0;
+
+    if (turn == 1){  //if it is the AI's turn
+        int best = -1000;   //best score
+        for (int i=0; i<7; i++){    //for each possible move
+            if (scores[0][i] == '0'){   //if the column is not full
+                for (int j=5; j>=0; j--){   //find the lowest empty row
+                    if (scores[j][i] == '0'){   //if the row is empty
+                        scores[j][i] = '1'; //drop the disc
+                        score = AlphaBeta(depth+1, 0, alpha, beta); //calculate the score
+                        scores[j][i] = '0'; //undo the move
+                        if (score > best){  //if the score is better than the best score
+                            best = score;   //update the best score
+                        }
+                        if (best > alpha){
+                            alpha = best;
+                        }
+                        if (beta <= alpha){
+                            return best;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return best;
+    }
+    else{   //if it is the player's turn / given player =2 and ai =1
+        int best = 1000;
+        for (int i=0; i<7; i++){
+            if (scores[0][i] == '0'){
+                for (int j=5; j>=0; j--){
+                    if (scores[j][i] == '0'){
+                        scores[j][i] = '2';
+                        score = AlphaBeta(depth+1, 1, alpha, beta);
+                        scores[j][i] = '0';
+                        if (score < best){
+                            best = score;
+                        }
+                        if (best < beta){
+                            beta = best;
+                        }
+                        if (beta <= alpha){
+                            return best;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return best;
+    }
 }
