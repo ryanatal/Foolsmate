@@ -419,3 +419,82 @@ bool Tie(){
     }
     return true;    //The board is full
 }
+
+//checking the MinMax of each possible move, calculating the best move 
+int MinMax(int depth, int turn){
+    /*
+    requirement: depth = depth of the tree
+                 turn = 1 if it is the AI's turn, 0 if it is the player's turn
+    effect: checks the MinMax of each possible move, calculating the best move
+    */
+   
+    int score = 0;
+    if (Tie()) return 0;
+
+    if (turn == 1){ //AI's turn
+        int best = -1000;   //best score
+        for (int i=0; i<7; i++){    //for each possible move
+            if (scores[0][i] == '0'){   //if the column is not full
+                for (int j=5; j>=0; j--){   //find the lowest empty row
+                    if (scores[j][i] == '0'){   //if the row is empty
+                        scores[j][i] = '1'; //drop the disc
+                        score = MinMax(depth+1, 0); //calculate the score
+                        scores[j][i] = '0'; //undo the move
+                        if (score > best){  //if the score is better than the best score
+                            best = score;   //update the best score
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return best;
+    }
+    else{
+        int best = 1000;
+        for (int i=0; i<7; i++){
+            if (scores[0][i] == '0'){
+                for (int j=5; j>=0; j--){
+                    if (scores[j][i] == '0'){
+                        scores[j][i] = '2';
+                        score = MinMax(depth+1, 1);
+                        scores[j][i] = '0';
+                        if (score < best){
+                            best = score;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        printf("best: %d\n", best);
+        return best;
+    }
+}
+
+int MonteCarlomove(){
+    /*
+    requirement: n/a
+    effect: calculates the best move using Monte Carlo Tree Search
+    */
+    int best = -1000;
+    int bestMove = 0;
+    int score = 0;
+    for (int i=0; i<7; i++){
+        if (scores[0][i] == '0'){
+            for (int j=5; j>=0; j--){
+                if (scores[j][i] == '0'){
+                    scores[j][i] = '1';
+                    score = MonteCarlo(0);
+                    scores[j][i] = '0';
+                    if (score > best){
+                        best = score;
+                        bestMove = i;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return bestMove;
+}
