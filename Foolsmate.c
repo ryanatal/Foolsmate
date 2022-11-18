@@ -1,3 +1,6 @@
+//foolsmate team
+//cmps 270-Software Construction
+
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
