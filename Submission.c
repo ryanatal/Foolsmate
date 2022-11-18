@@ -289,23 +289,19 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
     }
 }
 
-int hardMove()
+int hardMove(int scores[6][7])
 {
-    int columnNumber;
-    //time_t start, end;
 
     printf("You are playing against the Hard Bot...\n\n");
-    //start = time(NULL);
 
-    columnNumber = minimax(12, -1000, 1000, 0).column;  //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 12
+    int columnNumber = minimax(12, -1000, 1000, 0).column;  
 
     printf("Column number: %d \n", columnNumber+1);
 
     scores[numOfZeros[columnNumber]][columnNumber] = 2;
     numOfZeros[columnNumber]--;
-    //end = time(NULL);
     return columnNumber;
-    //time2 += ((double)(end - start));
+    
 }
 
 int main(){

@@ -315,7 +315,6 @@ for (int i=3; i<COLS; i++){
     }
     return 0;
     }
-
 int checkVertical()
 {
     for (int i = 0; i<COLS-3 ; i++ ){
@@ -330,8 +329,6 @@ int checkVertical()
     }
     return 0;
 }
-
-
 void initializeBoard()
 {
     for (int i = 0; i < 6; i++)
@@ -343,7 +340,6 @@ void initializeBoard()
     }
     start();
 }
-
 void display()
 {
     printf("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n");
@@ -361,7 +357,6 @@ void display()
         printf("|---|---|---|---|---|---|---|\n");
     }
 }
-
 int checkWinningSide(int side)
 {
     int winningSide = 0;
@@ -415,7 +410,6 @@ int checkWinningSide(int side)
 
     return winningSide;
 }
-
 int favOfPosition()
 {
     // check horizontal
@@ -523,8 +517,6 @@ int favOfPosition()
 
     return score;
 }
-
-
 botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 {
     botMove ret;//the return value
@@ -641,7 +633,6 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
         return ret;
     }
 }
-
 
 
 int hardMove(int scores[6][7])
