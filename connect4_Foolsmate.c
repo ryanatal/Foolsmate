@@ -2,25 +2,13 @@
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
-
+#include "connect4_Foolsmate.h"
 #define ROWS 6
 #define COLS 7
 int scores_foolsmate[6][7]; // 6 rows, 7 columns
 
 int numOfZeros_foolsmate[7] = {5, 5, 5, 5, 5, 5, 5};
 
-typedef struct botMove_foolsmate botMove_foolsmate;
-botMove_foolsmate minimax_foolsmate(); 
-
-struct botMove_foolsmate// This struct is used to return the best move and the score of the best move from the minimax_foolsmate function
-{
-    int column;
-    int score;
-};
-
-int make_move_foolsmate();
-int favOfPosition_foolsmate();
-int checkWinningSide_foolsmate();
 
 /*Requires: a side which is either 1 or 2
   Modifies: nothing
@@ -325,3 +313,6 @@ int make_move_foolsmate()
     
 }
 
+int main(){
+    return 0;
+}
