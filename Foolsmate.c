@@ -83,7 +83,7 @@ Testing Bot Win/Lose:
 5) Hard, Bot starts: Specific case, of where the bot starts
 6) Hard, PLayer starts: Bot plays according to depth 12
     6*) Cannot check for bot winnings
-    
+
 */
 
 
@@ -324,7 +324,7 @@ void easyMove()
     int columnNumber;//the column number the bot chooses
     time_t start, end;
 
-    printf("You are versing the Easy Bot...\n\n");
+    printf("You are playing against the Easy Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(3, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 3
@@ -348,7 +348,7 @@ void mediumMove()
     int columnNumber;
     time_t start, end;
 
-    printf("You are versing the Medium Bot...\n\n");
+    printf("You are playing against the Medium Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(5, -1000, 1000, 0).column; //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 5
@@ -372,7 +372,7 @@ void hardMove()
     int columnNumber;
     time_t start, end;
 
-    printf("You are versing the Hard Bot...\n\n");
+    printf("You are playing against the Hard Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(12, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 12
