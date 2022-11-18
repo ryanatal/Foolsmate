@@ -4,9 +4,6 @@ int tossAcoin();
 void playerMove();
 void choose(); 
 void player2move();
-void easyMove();
-void mediumMove();
-void hardMove();
 int favOfPosition();
 int WinOrNot();
 void start();
@@ -23,3 +20,5 @@ struct botMove
     int column;
     int score;
 };
+
+int hardMove();

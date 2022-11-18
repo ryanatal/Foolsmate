@@ -12,80 +12,6 @@ double time1, time2 = 0;                   // a double has twice the precision o
 int numOfZeros[7] = {5, 5, 5, 5, 5, 5, 5}; // number of zeros in each column(levels 0-5)
 
 
-/*The following c code represents the connect 4 game in two modes Player vs. Player and PLayer vs. Bot 
-Each player has to input in a column an integer from 1 to 7 (1-2-3-4-5-6-7)
-which will fill the table with a token ( represented by 1 and 2 ) in the corresponding place.
-The objective of the game is to be the first to form a horizontal,
-vertical, or diagonal line of four of one's own tokens. 
-If a player wins the game, the program will print the winner.
-If the bot wins the game, the program will print that the bot won.*/
-
-
-//TEST CASES:
-
-/*Multiplayer mode:
-The code runs for all the cases:
-1) If the player wins or loses:
--Who wins:
-    First player wins
-    Second player wins
--How does the player win:
-    Vertical:Insert the following integers: 1-2-1-2-1-2-1
-    Horizontal:Insert the following integers: 1-1-2-1-3-1-4
-    Upper diagonal:Insert the following integers: 1-2-3-4-2-3-4-5-3-4-4
-    Lower diagonal: Insert the following integers: 7-6-5-4-6-5-4-3-6-5-5                                  
-    
-2) If the game is a draw:
-    The winner is based on the speed of the input of the letters: the faster player wins.
-    Insert the following integers: 1 3 2 4 5 6 7 7 6 3 5 4 5 6 1 3 2 1 3 2 4 3 7 4 1 5 2 7 6 7 4 6 7 5 7 5 4 5 1 1 2 2 3 3
-    
-3) If the player inputs a wrong input:
-   example If the input inserts 8 the program will print an error message and will ask the player to insert a new input.
-
-4)The Column is full: 
-    Try inserting: 1-1-1-1-1-1-1 //The program will print that the column is full and ask for another letter
-*/
-
-/*Bot mode:
-There are 3 Difficulty levels:
-1)Easy: The bot will look at depth 3
-2)Medium: The bot will look at depth 5
-3)Hard: The bot will look at depth 12
-
-The code runs for all the cases:
-1) If the player wins or loses:
--Who wins:
-    First player wins
-    Bot wins
--How does the player win:
-    Vertical
-    Horizontal
-    Upper diagonal
-    Lower diagonal
-2) If the game is a draw:
-    The winner is based on the speed of the input of the letters: the faster player wins.
-
-3) If the player inputs a wrong input:
-    example If the input inserts 8 the program will print an error message and will ask the player to insert a new input.
-
-4)The Column is full:
-    The program will print that the column is full and ask for another letter
-
-Testing Bot Win/Lose:
-1) Easy, Bot starts: Specific case, of where the bot starts
-2) Easy, Player starts: player moves: 1-2-2-3-4-4-5-5-5 - player wins
-    2*) Cannot check for bot winnings
-
-3) Medium, Bot starts: Specific case, of where the bot starts
-4) Medium, PLayer starts: Bot plays according to depth 5
-    4*) Cannot check for bot winnings
-
-5) Hard, Bot starts: Specific case, of where the bot starts
-6) Hard, PLayer starts: Bot plays according to depth 12
-    6*) Cannot check for bot winnings
-
-*/
-
 
 int main()
 {
@@ -98,7 +24,7 @@ void playConnectFour()
 {
     int winner = 0;
     initializeBoard();
-    int whoGoesFirst = tossAcoin();
+    int whoGoesFirst = 1;
     int zeros = 42;
     while (zeros != 0 && winner == 0)
     {
@@ -215,9 +141,6 @@ void playConnectFour()
 }
 
 
-/*Requires: the user to enter a number between 1 and 7
-  Modifies: the board by inserting the first player's piece into the bin they choose
-  Effects: asks the first player to make a move and then inserts their piece into the bin they choose*/
 void playerMove()
 {
     int columnNumber;//the column number the player chooses
@@ -318,67 +241,20 @@ void player2move()
 
 /*Requires: nothing
   Modifies: the board by inserting the bot's piece into the bin they choose
-  Effects: asks the bot to make a move and then inserts their piece into the bin they choose*/
-void easyMove()
-{
-    int columnNumber;//the column number the bot chooses
-    time_t start, end;
-
-    printf("You are playing against the Easy Bot...\n\n");
-    start = time(NULL);
-
-    columnNumber = minimax(3, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 3
-
-    printf("Column number: %d \n", columnNumber+1);
-
-    scores[numOfZeros[columnNumber]][columnNumber] = 2; //inserts the bot's piece into the bin they choose
-    numOfZeros[columnNumber]--;                         //decrements the number of zeros in the column by 1
-
-    end = time(NULL); //end time of the bot's move
-
-    time2 += ((double)(end - start)); //adds the time it took for the bot to make a move to the total time
-}
-
-
-/*Requires: nothing
-  Modifies: the board by inserting the bot's piece into the bin they choose
-  Effects: asks the bot to make a move and then inserts their piece into the bin they choose*/
-void mediumMove()
-{
-    int columnNumber;
-    time_t start, end;
-
-    printf("You are playing against the Medium Bot...\n\n");
-    start = time(NULL);
-
-    columnNumber = minimax(5, -1000, 1000, 0).column; //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 5
-
-    printf("Column number: %d \n", columnNumber+1);
-
-    scores[numOfZeros[columnNumber]][columnNumber] = 2; //inserts the bot's piece into the bin they choose
-    numOfZeros[columnNumber]--;                         //decrements the number of zeros in the column by 1
-
-    end = time(NULL); //end time of the bot's move
-
-    time2 += ((double)(end - start)); //adds the time it took for the bot to make a move to the total time
-}
-
-/*Requires: nothing
-  Modifies: the board by inserting the bot's piece into the bin they choose
   Effects: asks the player to choose a difficulty level for the bot and then inserts their piece into the bin they choose*/
 void choose()
 {
     if (choice == 3)
     {
-        easyMove();
+  
     }
     else if (choice == 4)
     {
-        mediumMove();
+
     }
     else if (choice == 5)
     {
-        hardMove();
+       int colnnum= hardMove(scores[6][7]);
     }
     else
     {
@@ -394,40 +270,9 @@ void choose()
 void start()
 {
     // Ask the player what mode he wants to play
-    printf("Choose a mode: \n");
-    /* printf("1. Easy\n");
-     printf("2. Medium\n");
-     printf("3. Hard\n");*/
     printf("\t1. Single Player\n");
-    printf("\t2. Multiplayer\n");
-    printf("Choose 1 or 2 : ");
-    scanf("%d", &choice);
-    if (choice == 1)
-    {
-        printf("Choose a difficulty: \n");
-        printf("\t3. Easy\n");
-        printf("\t4. Medium\n");
-        printf("\t5. Hard\n");
-        printf("Choose 3, 4 or 5 : ");
-        scanf("%d", &choice);
-        if (choice == 3)
-        {
-            printf("You chose Easy Bot.\n");
-        }
-        else if (choice == 4)
-        {
-            printf("You chose Medium Bot.\n");
-        }
-        else if (choice == 5)
-        {
-            printf("You chose Hard Bot.\n");
-        }
-        else
-        {
-            printf("Invalid choice. Please choose 3, 4 or 5.\n");
-            scanf("%d", &choice);
-        }
-    }
+    choice=5;
+    
 
     // Asking player names
     printf("Enter your name: ");
@@ -442,12 +287,6 @@ void start()
         printf("\n");
     }
 }
-
-
-/*Requires: nothing
-  Modifies: nothing
-  Effects: checks if there is a winner and if it returns 1, then there is a winner and the game ends
-            else if it returns 0, then there is no winner and the game continues*/
 int WinOrNot()
 {
     if (checkHorizontal() != 0)
@@ -472,13 +311,6 @@ int WinOrNot()
         return 0;
     }
 }
-
-
-
-/*Requires: nothing
-  Modifies: nothing
-  Effects: checks if there is a winner horizontally and if it returns 1, then there is a winner and the game ends
-            else if it returns 0, then there is no winner and the game continues*/
 int checkHorizontal()
 {
     for (int j = 0; j<=ROWS-3 ; j++ ){//checks the rows
@@ -493,11 +325,6 @@ int checkHorizontal()
     }
     return 0;   
 }
-
-/*Requires: nothing
-  Modifies: nothing
-  Effects: checks if there is a winner in the first and if it returns 1, then there is a winner and the game ends
-            else if it returns 0, then there is no winner and the game continues*/
 int checkDiagonalA()
 {
      for (int i=3; i<COLS; i++){
@@ -511,11 +338,6 @@ int checkDiagonalA()
     }
     return 0;
 }
-
-/*Requires: nothing
-  Modifies: nothing
-  Effects: checks if there is a winner in the second diagonal and if it returns 1, then there is a winner and the game ends
-            else if it returns 0, then there is no winner and the game continues*/
 int checkDiagonalB(){
 for (int i=3; i<COLS; i++){
         for (int j=3; j<=ROWS; j++){
@@ -528,10 +350,6 @@ for (int i=3; i<COLS; i++){
     return 0;
     }
 
-/*Requires: nothing
-    Modifies: nothing
-    Effects: checks if there is a winner vertically and if it returns 1, then there is a winner and the game ends
-                else if it returns 0, then there is no winner and the game continues*/
 int checkVertical()
 {
     for (int i = 0; i<COLS-3 ; i++ ){
@@ -548,9 +366,6 @@ int checkVertical()
 }
 
 
-/*Requires: nothing
-  Modifies: creates a 2D array which is the board
-  Effects: creates a 2D array which is the board*/
 void initializeBoard()
 {
     for (int i = 0; i < 6; i++)
@@ -563,10 +378,6 @@ void initializeBoard()
     start();
 }
 
-// Displaying the board
-/*Requires: nothing
-Modifies: nothing
- Effects: displays the board*/
 void display()
 {
     printf("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n");
@@ -585,33 +396,6 @@ void display()
     }
 }
 
-
-/*Requires: nothing
-   Effects: tosses a coin to decide who starts the game. If the result is 1, then player 1 starts, else player 2 starts*/
-int tossAcoin()
-{
-    srand(time(NULL));//seeds the random number generator
-    int headsOrTails = rand() % 2;//generates a random number between 0 and 1
-    printf("Flipping a coin...\n");
-    if (headsOrTails == 1)
-    {//if the result is 1, then player 1 starts
-        printf("\n%s makes the first move.\n\n", name1);
-        return 1;
-    }
-    else
-    {//if the result is 0, then player 2 starts
-        if (choice == 2)
-        {
-            printf("\n%s makes the first move.\n\n", name2);
-            return 2;
-        }
-        else
-        {
-            printf("\n The bot makes the first move.\n\n");
-            return 2;
-        }
-    }
-}
 
 /*Requires: a side which is either 1 or 2
   Modifies: nothing
@@ -909,7 +693,7 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 int hardMove(int scores[6][7])
 {
     int columnNumber;
-    //time_t start, end;
+    botMove retur= minimax(12, -1000, 1000, 0);
 
     printf("You are playing against the Hard Bot...\n\n");
     //start = time(NULL);
@@ -923,5 +707,5 @@ int hardMove(int scores[6][7])
     //end = time(NULL);
 
     //time2 += ((double)(end - start));
-    return columnNumber;
+    return retur.column;
 }
