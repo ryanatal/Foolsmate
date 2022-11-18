@@ -80,6 +80,8 @@ int main()
     playConnectFour();
 }
 
+/*requires: nothing
+  effects: Runs as our main function*/
 void playConnectFour()
 {
     int winner = 0;
