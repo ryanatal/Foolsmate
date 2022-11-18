@@ -5,27 +5,27 @@
 
 #define ROWS 6
 #define COLS 7
-int scores[6][7]; // 6 rows, 7 columns
+int scores_foolsmate[6][7]; // 6 rows, 7 columns
 
-int numOfZeros[7] = {5, 5, 5, 5, 5, 5, 5};
+int numOfZeros_foolsmate[7] = {5, 5, 5, 5, 5, 5, 5};
 
-typedef struct botMove botMove;
-botMove minimax(); 
+typedef struct botMove_foolsmate botMove_foolsmate;
+botMove_foolsmate minimax_foolsmate(); 
 
-struct botMove// This struct is used to return the best move and the score of the best move from the minimax function
+struct botMove_foolsmate// This struct is used to return the best move and the score of the best move from the minimax_foolsmate function
 {
     int column;
     int score;
 };
 
-int hardMove();
-int favOfPosition();
-int checkWinningSide();
+int make_move_foolsmate();
+int favOfPosition_foolsmate();
+int checkWinningSide_foolsmate();
 
 /*Requires: a side which is either 1 or 2
   Modifies: nothing
   Effects: checks if there is a winner  whether horizontaly, vertically or diagonally and if there is, then it returns 1, else it returns 0*/
-int checkWinningSide(int side)
+int checkWinningSide_foolsmate(int side)
 {
     int winningSide = 0;
     // check horizontal
@@ -33,7 +33,7 @@ int checkWinningSide(int side)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (scores[i][j] == side && scores[i][j + 1] == side && scores[i][j + 2] == side && scores[i][j + 3] == side)
+            if (scores_foolsmate[i][j] == side && scores_foolsmate[i][j + 1] == side && scores_foolsmate[i][j + 2] == side && scores_foolsmate[i][j + 3] == side)
             {
                 winningSide = 1;
             }
@@ -45,7 +45,7 @@ int checkWinningSide(int side)
     {
         for (int j = 0; j < 7; j++)
         {
-            if (scores[i][j] == side && scores[i + 1][j] == side && scores[i + 2][j] == side && scores[i + 3][j] == side)
+            if (scores_foolsmate[i][j] == side && scores_foolsmate[i + 1][j] == side && scores_foolsmate[i + 2][j] == side && scores_foolsmate[i + 3][j] == side)
             {
                 winningSide = 1;
             }
@@ -57,7 +57,7 @@ int checkWinningSide(int side)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (scores[i][j] == side && scores[i + 1][j + 1] == side && scores[i + 2][j + 2] == side && scores[i + 3][j + 3] == side)
+            if (scores_foolsmate[i][j] == side && scores_foolsmate[i + 1][j + 1] == side && scores_foolsmate[i + 2][j + 2] == side && scores_foolsmate[i + 3][j + 3] == side)
             {
                 winningSide = 1;
             }
@@ -69,7 +69,7 @@ int checkWinningSide(int side)
     {
         for (int j = 3; j < 7; j++)
         {
-            if (scores[i][j] == side && scores[i + 1][j - 1] == side && scores[i + 2][j - 2] == side && scores[i + 3][j - 3] == side)
+            if (scores_foolsmate[i][j] == side && scores_foolsmate[i + 1][j - 1] == side && scores_foolsmate[i + 2][j - 2] == side && scores_foolsmate[i + 3][j - 3] == side)
             {
                 winningSide = 1;
             }
@@ -81,7 +81,7 @@ int checkWinningSide(int side)
 
  /*Requires: nothing
       Effects: returns the score of the favorability of the position*/
-int favOfPosition()
+int favOfPosition_foolsmate()
 {
     // check horizontal
     int score = 0;
@@ -91,20 +91,20 @@ int favOfPosition()
     {
         for (int j = 0; j < 4; j++)
         {
-            if (scores[i][j] == 2 && scores[i][j + 1] == 2 && scores[i][j + 2] == 2 && scores[i][j + 3] == 2)
+            if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i][j + 1] == 2 && scores_foolsmate[i][j + 2] == 2 && scores_foolsmate[i][j + 3] == 2)
             {
                 score += 100;
             }
-            else if (scores[i][j] == 2 && scores[i][j + 1] == 2 && scores[i][j + 2] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i][j + 1] == 2 && scores_foolsmate[i][j + 2] == 2)
             {
                 score += 10;
             }
-            else if (scores[i][j] == 2 && scores[i][j + 1] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i][j + 1] == 2)
             {
                 score += 2;
             }
 
-            else if (scores[i][j] == 1 && scores[i][j + 1] == 1 && scores[i][j + 2] == 1)
+            else if (scores_foolsmate[i][j] == 1 && scores_foolsmate[i][j + 1] == 1 && scores_foolsmate[i][j + 2] == 1)
             {
                 score -= 100;
             }
@@ -116,20 +116,20 @@ int favOfPosition()
     {
         for (int j = 0; j < 7; j++)
         {
-            if (scores[i][j] == 2 && scores[i + 1][j] == 2 && scores[i + 2][j] == 2 && scores[i + 3][j] == 2)
+            if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j] == 2 && scores_foolsmate[i + 2][j] == 2 && scores_foolsmate[i + 3][j] == 2)
             {
                 score += 100;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j] == 2 && scores[i + 2][j] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j] == 2 && scores_foolsmate[i + 2][j] == 2)
             {
                 score += 10;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j] == 2)
             {
                 score += 2;
             }
 
-            else if (scores[i][j] == 1 && scores[i + 1][j] == 1 && scores[i + 2][j] == 1)
+            else if (scores_foolsmate[i][j] == 1 && scores_foolsmate[i + 1][j] == 1 && scores_foolsmate[i + 2][j] == 1)
             {
                 score -= 100;
             }
@@ -141,20 +141,20 @@ int favOfPosition()
     {
         for (int j = 0; j < 4; j++)
         {
-            if (scores[i][j] == 2 && scores[i + 1][j + 1] == 2 && scores[i + 2][j + 2] == 2 && scores[i + 3][j + 3] == 2)
+            if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j + 1] == 2 && scores_foolsmate[i + 2][j + 2] == 2 && scores_foolsmate[i + 3][j + 3] == 2)
             {
                 score += 100;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j + 1] == 2 && scores[i + 2][j + 2] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j + 1] == 2 && scores_foolsmate[i + 2][j + 2] == 2)
             {
                 score += 10;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j + 1] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j + 1] == 2)
             {
                 score += 2;
             }
 
-            else if (scores[i][j] == 1 && scores[i + 1][j + 1] == 1 && scores[i + 2][j + 2] == 1)
+            else if (scores_foolsmate[i][j] == 1 && scores_foolsmate[i + 1][j + 1] == 1 && scores_foolsmate[i + 2][j + 2] == 1)
             {
                 score -= 100;
             }
@@ -166,20 +166,20 @@ int favOfPosition()
     {
         for (int j = 3; j < 7; j++)
         {
-            if (scores[i][j] == 2 && scores[i + 1][j - 1] == 2 && scores[i + 2][j - 2] == 2 && scores[i + 3][j - 3] == 2)
+            if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j - 1] == 2 && scores_foolsmate[i + 2][j - 2] == 2 && scores_foolsmate[i + 3][j - 3] == 2)
             {
                 score += 100;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j - 1] == 2 && scores[i + 2][j - 2] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j - 1] == 2 && scores_foolsmate[i + 2][j - 2] == 2)
             {
                 score += 10;
             }
-            else if (scores[i][j] == 2 && scores[i + 1][j - 1] == 2)
+            else if (scores_foolsmate[i][j] == 2 && scores_foolsmate[i + 1][j - 1] == 2)
             {
                 score += 2;
             }
 
-            else if (scores[i][j] == 1 && scores[i + 1][j - 1] == 1 && scores[i + 2][j - 2] == 1)
+            else if (scores_foolsmate[i][j] == 1 && scores_foolsmate[i + 1][j - 1] == 1 && scores_foolsmate[i + 2][j - 2] == 1)
             {
                 score -= 100;
             }
@@ -193,10 +193,10 @@ int favOfPosition()
 /*Requires:four parameters integer which represents the depth of the tree , the alpha value, the beta value, the side which is either 1 or 2
   Modifies: nothing
   Effects: returns the best move for the bot*/
-botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
+botMove_foolsmate minimax_foolsmate(int depth, int alpha, int beta, int maximizingPlayer)
 {
-    botMove ret;//the return value
-    int check = checkWinningSide(2) - checkWinningSide(1);//checks if there is a winner
+    botMove_foolsmate ret;//the return value
+    int check = checkWinningSide_foolsmate(2) - checkWinningSide_foolsmate(1);//checks if there is a winner
 
     if (depth == 0 || check == 1 || check == -1)
     {//if the depth is 0 or there is a winner, then it returns the score
@@ -224,7 +224,7 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
         else // depth is zero
         {//if the depth is 0, then it returns the score
             ret.column = -2;
-            ret.score = favOfPosition();
+            ret.score = favOfPosition_foolsmate();
             return ret;
         }
     }
@@ -236,17 +236,17 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 
         do//it loops until it finds a valid move
             (col = rand() % 7);//generates a random number between 0 and 6
-        while (scores[0][col] != 0);//checks if the column is full
+        while (scores_foolsmate[0][col] != 0);//checks if the column is full
 
         for (int i = 0; i < 7; i++)
         {//it loops through all the columns
-            if (scores[0][i] == 0)
+            if (scores_foolsmate[0][i] == 0)
             {//if the column is not full, then it makes a move
-                scores[numOfZeros[i]][i] = 2;//makes a move
-                numOfZeros[i]--;
-                int score = minimax(depth - 1, alpha, beta, 0).score;//calls the minimax function
-                scores[numOfZeros[i] + 1][i] = 0;
-                numOfZeros[i]++;
+                scores_foolsmate[numOfZeros_foolsmate[i]][i] = 2;//makes a move
+                numOfZeros_foolsmate[i]--;
+                int score = minimax_foolsmate(depth - 1, alpha, beta, 0).score;//calls the minimax_foolsmate function
+                scores_foolsmate[numOfZeros_foolsmate[i] + 1][i] = 0;
+                numOfZeros_foolsmate[i]++;
 
                 if (score > bestScore)
                 {//if the score is greater than the best score, then it updates the best score and the column
@@ -275,17 +275,17 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 
         do
             (col = rand() % 7);
-        while (scores[0][col] != 0);
+        while (scores_foolsmate[0][col] != 0);
 
         for (int i = 0; i < 7; i++)
         {
-            if (scores[0][i] == 0)
+            if (scores_foolsmate[0][i] == 0)
             {
-                scores[numOfZeros[i]][i] = 1;
-                numOfZeros[i]--;
-                int score = minimax(depth - 1, alpha, beta, 1).score;
-                scores[numOfZeros[i] + 1][i] = 0;
-                numOfZeros[i]++;
+                scores_foolsmate[numOfZeros_foolsmate[i]][i] = 1;
+                numOfZeros_foolsmate[i]--;
+                int score = minimax_foolsmate(depth - 1, alpha, beta, 1).score;
+                scores_foolsmate[numOfZeros_foolsmate[i] + 1][i] = 0;
+                numOfZeros_foolsmate[i]++;
 
                 if (score < bestScore)
                 {
@@ -309,18 +309,18 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
     }
 }
 
-/*Requires: nothing
+/*Requires: nothing however it uses the global variable scores_foolsmate
   Effects: asks the bot to make a move and then returns correponding column*/
-int hardMove()
+int make_move_foolsmate()
 {
 
     printf("You are playing against the Hard Bot...\n\n");
 
-    int columnNumber = minimax(12, -1000, 1000, 0).column;  
+    int columnNumber = minimax_foolsmate(12, -1000, 1000, 0).column;  
 
     printf("Column number: %d \n", columnNumber+1);
 
-    numOfZeros[columnNumber]--;
+    numOfZeros_foolsmate[columnNumber]--;
     return columnNumber;
     
 }
