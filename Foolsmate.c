@@ -1,4 +1,6 @@
 //foolsmate team
+// Ryan Atallah, Perla Daghfal, Nadine Saimua, Bucker Yahfoufi
+
 //cmps 270-Software Construction
 
 #include <stdlib.h>
