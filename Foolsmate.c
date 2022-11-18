@@ -202,7 +202,7 @@ void player2move()
     {                                                 //asks the player to enter a column number
         printf("Enter the column number(1-7): ");
         scanf("%d", &columnNumber);//the column number the player chooses
-
+        printf("\n");
         if (columnNumber <= 0 || columnNumber > 7) //if the player enters a number that is not between 1 and 7
         {                                                 
             printf("Invalid column number. Please enter a number between 1 and 7. \n");
@@ -246,7 +246,7 @@ void easyMove()
     int columnNumber;//the column number the bot chooses
     time_t start, end;
 
-    printf("Easy Bot is now playing...\n\n");
+    printf("You are versing the Easy Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(3, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 3
@@ -270,7 +270,7 @@ void mediumMove()
     int columnNumber;
     time_t start, end;
 
-    printf("Medium Bot is now playing...\n\n");
+    printf("You are versing the Medium Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(5, -1000, 1000, 0).column; //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 5
@@ -294,7 +294,7 @@ void hardMove()
     int columnNumber;
     time_t start, end;
 
-    printf("Hard Bot is now playing...\n\n");
+    printf("You are versing the Hard Bot...\n\n");
     start = time(NULL);
 
     columnNumber = minimax(12, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 12
@@ -537,22 +537,22 @@ int tossAcoin()
 {
     srand(time(NULL));//seeds the random number generator
     int headsOrTails = rand() % 2;//generates a random number between 0 and 1
-
+    printf("Flipping a coin...\n");
     if (headsOrTails == 1)
     {//if the result is 1, then player 1 starts
-        printf("Flipping a coin...\n%s makes the first move.\n\n", name1);
+        printf("\n%s makes the first move.\n\n", name1);
         return 1;
     }
     else
     {//if the result is 0, then player 2 starts
         if (choice == 2)
         {
-            printf("Flipping a coin...\n%s makes the first move.\n\n", name2);
+            printf("\n%s makes the first move.\n\n", name2);
             return 2;
         }
         else
         {
-            printf("Flipping a coin...\n The bot makes the first move.\n\n");
+            printf("\n The bot makes the first move.\n\n");
             return 2;
         }
     }
