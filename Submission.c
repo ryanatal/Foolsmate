@@ -298,7 +298,6 @@ int hardMove(int scores[6][7])
 
     printf("Column number: %d \n", columnNumber+1);
 
-    scores[numOfZeros[columnNumber]][columnNumber] = 2;
     numOfZeros[columnNumber]--;
     return columnNumber;
     
