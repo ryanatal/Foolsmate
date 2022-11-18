@@ -71,7 +71,19 @@ The code runs for all the cases:
 4)The Column is full:
     The program will print that the column is full and ask for another letter
 
+Testing Bot Win/Lose:
+1) Easy, Bot starts: Specific case, of where the bot starts
+2) Easy, Player starts: player moves: 1-2-2-3-4-4-5-5-5 - player wins
+    2*) Cannot check for bot winnings
 
+3) Medium, Bot starts: Specific case, of where the bot starts
+4) Medium, PLayer starts: Bot plays according to depth 5
+    4*) Cannot check for bot winnings
+
+5) Hard, Bot starts: Specific case, of where the bot starts
+6) Hard, PLayer starts: Bot plays according to depth 12
+    6*) Cannot check for bot winnings
+    
 */
 
 
