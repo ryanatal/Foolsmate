@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
-#include "functions.h"
+#include "Functions.h"
 #define ROWS 6
 #define COLS 7
 int scores[6][7]; // 6 rows, 7 columns
@@ -251,6 +251,8 @@ void easyMove()
 
     columnNumber = minimax(3, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 3
 
+    printf("Column number: %d \n", columnNumber+1);
+    
     scores[numOfZeros[columnNumber]][columnNumber] = 2; //inserts the bot's piece into the bin they choose
     numOfZeros[columnNumber]--;                         //decrements the number of zeros in the column by 1
 
@@ -272,6 +274,8 @@ void mediumMove()
     start = time(NULL);
 
     columnNumber = minimax(5, -1000, 1000, 0).column; //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 5
+
+    printf("Column number: %d \n", columnNumber+1);
 
     scores[numOfZeros[columnNumber]][columnNumber] = 2; //inserts the bot's piece into the bin they choose
     numOfZeros[columnNumber]--;                         //decrements the number of zeros in the column by 1
@@ -295,7 +299,7 @@ void hardMove()
 
     columnNumber = minimax(12, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 12
 
-    printf("Column number: %d \n", columnNumber);
+    printf("Column number: %d \n", columnNumber+1);
 
     scores[numOfZeros[columnNumber]][columnNumber] = 2;
     numOfZeros[columnNumber]--;
