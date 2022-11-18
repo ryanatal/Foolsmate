@@ -343,16 +343,16 @@ void start()
     /* printf("1. Easy\n");
      printf("2. Medium\n");
      printf("3. Hard\n");*/
-    printf("1. Single Player\n");
-    printf("2. Multiplayer\n");
+    printf("\t1. Single Player\n");
+    printf("\t2. Multiplayer\n");
     printf("Choose 1 or 2 : ");
     scanf("%d", &choice);
     if (choice == 1)
     {
         printf("Choose a difficulty: \n");
-        printf("3. Easy\n");
-        printf("4. Medium\n");
-        printf("5. Hard\n");
+        printf("\t3. Easy\n");
+        printf("\t4. Medium\n");
+        printf("\t5. Hard\n");
         printf("Choose 3, 4 or 5 : ");
         scanf("%d", &choice);
         if (choice == 3)
@@ -514,7 +514,8 @@ Modifies: nothing
  Effects: displays the board*/
 void display()
 {
-    printf("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n\n");
+    printf("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n");
+    printf("|---|---|---|---|---|---|---|\n\n");
     int row, column = 0;
 
     for (row = 0; row < 6; row++)
@@ -525,6 +526,7 @@ void display()
             printf(" %d |", scores[row][column]);
         }
         printf("\n");
+        printf("|---|---|---|---|---|---|---|\n");
     }
 }
 
