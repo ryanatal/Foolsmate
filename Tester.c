@@ -40,7 +40,6 @@ void playConnectFour()
                 printf("%s won!", name1);
                 break;
             }
-            choose();
             winner = WinOrNot();
             if (winner != 0)
             {
@@ -58,7 +57,6 @@ void playConnectFour()
         }
         else
         {
-            choose();
             winner = WinOrNot();
             display();
             if (winner != 0)
@@ -143,11 +141,10 @@ void playConnectFour()
 
 void playerMove()
 {
-    int columnNumber;//the column number the player chooses
-    time_t start, end;
+    int columnNumber;//the column number the player chooses   
 
     printf("%s's turn. ", name1);//asks the player to make a move
-    start = time(NULL);//start time of the player's move
+    
     do
     {
         printf("Enter the column number(1-7): ");//asks the player to enter a column number
@@ -185,25 +182,20 @@ void playerMove()
         }
     } 
     while (scores[0][columnNumber] != 0);//while the column is full
-    end = time(NULL);//end time of the player's move
-    time1 += ((double)(end - start));//adds the time it took for the player to make a move to the total time
+    
 }
 
-/*Requires: the playe to enter a number between 1 and 7
-  Modifies: the board by inserting the bot's piece into the bin they choose
-  Effects: asks the bot or the second player to make a move and then inserts their piece into the bin they choose*/
 void player2move()
 {
     int columnNumber;
-    time_t start, end;
 
     printf("%s, your move...", name2);
-    start = time(NULL);
+    
     do
     {                                                 //asks the player to enter a column number
-        printf("Enter the column number(1-7): ");
-        scanf("%d", &columnNumber);//the column number the player chooses
-        printf("\n");
+        printf("Hard bot choice: ");
+        int columnNumber= hardMove(scores[6][7]);
+        printf("%d", columnNumber);
         if (columnNumber <= 0 || columnNumber > 7) //if the player enters a number that is not between 1 and 7
         {                                                 
             printf("Invalid column number. Please enter a number between 1 and 7. \n");
@@ -234,39 +226,13 @@ void player2move()
             break;
         }
     } while (scores[0][columnNumber] != 0);
-    end = time(NULL);
-
-    time2 += ((double)(end - start));//adds the time it took for the player to make a move to the total time
-}
-
-/*Requires: nothing
-  Modifies: the board by inserting the bot's piece into the bin they choose
-  Effects: asks the player to choose a difficulty level for the bot and then inserts their piece into the bin they choose*/
-void choose()
-{
-    if (choice == 3)
-    {
-  
-    }
-    else if (choice == 4)
-    {
-
-    }
-    else if (choice == 5)
-    {
-       int colnnum= hardMove(scores[6][7]);
-    }
-    else
-    {
-        player2move();
-    }
+   
 }
 
 
 
-/*Requires: nothing
-  Modifies: the name of the players and the difficulty level of the bot
-  Effects: asks the player to enter which mode they want to play in and then asks the player to enter the names of the players and the difficulty level of the bot*/
+
+
 void start()
 {
     // Ask the player what mode he wants to play
@@ -396,10 +362,6 @@ void display()
     }
 }
 
-
-/*Requires: a side which is either 1 or 2
-  Modifies: nothing
-  Effects: checks if there is a winner  whether horizontaly, vertically or diagonally and if there is, then it returns 1, else it returns 0*/
 int checkWinningSide(int side)
 {
     int winningSide = 0;
@@ -454,8 +416,6 @@ int checkWinningSide(int side)
     return winningSide;
 }
 
- /*Requires: nothing
-      Effects: returns the score of the favorability of the position*/
 int favOfPosition()
 {
     // check horizontal
@@ -564,9 +524,7 @@ int favOfPosition()
     return score;
 }
 
-/*Requires:four parameters integer which represents the depth of the tree , the alpha value, the beta value, the side which is either 1 or 2
-  Modifies: nothing
-  Effects: returns the best move for the bot*/
+
 botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 {
     botMove ret;//the return value
@@ -685,27 +643,22 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 }
 
 
-/*Requires: nothing
-  Modifies: the board by inserting the bot's piece into the bin they choose
-  Effects: asks the bot to make a move and then inserts their piece into the bin they choose*/
-  //change hard move to take as input the array of scores and the array of numOfZeros
-  //and return columnNumber
+
 int hardMove(int scores[6][7])
 {
     int columnNumber;
-    botMove retur= minimax(12, -1000, 1000, 0);
+    botMove retur= minimax(3, -1000, 1000, 0);
 
     printf("You are playing against the Hard Bot...\n\n");
     //start = time(NULL);
 
-    columnNumber = minimax(12, -1000, 1000, 0).column;  //calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 12
+    columnNumber = retur.column;  
 
-    printf("Column number: %d \n", columnNumber+1);
+    printf("Column number: %d \n", retur.column);
 
     scores[numOfZeros[columnNumber]][columnNumber] = 2;
     numOfZeros[columnNumber]--;
     //end = time(NULL);
-
     //time2 += ((double)(end - start));
     return retur.column;
 }
