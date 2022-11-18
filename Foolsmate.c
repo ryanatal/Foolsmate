@@ -422,9 +422,6 @@ void start()
 {
     // Ask the player what mode he wants to play
     printf("Choose a mode: \n");
-    /* printf("1. Easy\n");
-     printf("2. Medium\n");
-     printf("3. Hard\n");*/
     printf("\t1. Single Player\n");
     printf("\t2. Multiplayer\n");
     printf("Choose 1 or 2 : ");
