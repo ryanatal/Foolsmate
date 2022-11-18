@@ -2,7 +2,6 @@
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
-#include "submission.h"
 
 #define ROWS 6
 #define COLS 7
@@ -10,7 +9,22 @@ int scores[6][7]; // 6 rows, 7 columns
 
 int numOfZeros[7] = {5, 5, 5, 5, 5, 5, 5};
 
+typedef struct botMove botMove;
+botMove minimax(); 
 
+struct botMove// This struct is used to return the best move and the score of the best move from the minimax function
+{
+    int column;
+    int score;
+};
+
+int hardMove();
+int favOfPosition();
+int checkWinningSide();
+
+/*Requires: a side which is either 1 or 2
+  Modifies: nothing
+  Effects: checks if there is a winner  whether horizontaly, vertically or diagonally and if there is, then it returns 1, else it returns 0*/
 int checkWinningSide(int side)
 {
     int winningSide = 0;
@@ -65,6 +79,8 @@ int checkWinningSide(int side)
     return winningSide;
 }
 
+ /*Requires: nothing
+      Effects: returns the score of the favorability of the position*/
 int favOfPosition()
 {
     // check horizontal
@@ -173,6 +189,10 @@ int favOfPosition()
     return score;
 }
 
+
+/*Requires:four parameters integer which represents the depth of the tree , the alpha value, the beta value, the side which is either 1 or 2
+  Modifies: nothing
+  Effects: returns the best move for the bot*/
 botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
 {
     botMove ret;//the return value
@@ -289,7 +309,9 @@ botMove minimax(int depth, int alpha, int beta, int maximizingPlayer)
     }
 }
 
-int hardMove(int scores[6][7])
+/*Requires: nothing
+  Effects: asks the bot to make a move and then returns correponding column*/
+int hardMove()
 {
 
     printf("You are playing against the Hard Bot...\n\n");
@@ -303,6 +325,3 @@ int hardMove(int scores[6][7])
     
 }
 
-int main(){
-    return 0;
-}
