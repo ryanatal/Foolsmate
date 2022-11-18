@@ -215,7 +215,7 @@ void player2move()
         }
 
         // check if column is full or not
-        else if (scores[0][columnNumber] != 0)
+        else if (numOfZeros[columnNumber - 1] == -1)
         {
             printf("Column full!\n");
             printf("Enter a valid column number(1-7): ");
@@ -252,7 +252,7 @@ void easyMove()
     columnNumber = minimax(3, -1000, 1000, 0).column;//calls the minimax function and stores the column number the bot chooses in the variable columnNumber with a depth of 3
 
     printf("Column number: %d \n", columnNumber+1);
-    
+
     scores[numOfZeros[columnNumber]][columnNumber] = 2; //inserts the bot's piece into the bin they choose
     numOfZeros[columnNumber]--;                         //decrements the number of zeros in the column by 1
 
