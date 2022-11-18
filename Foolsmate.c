@@ -11,6 +11,70 @@ char name1[20], name2[20];                 // names
 double time1, time2 = 0;                   // a double has twice the precision of a floating point number in C
 int numOfZeros[7] = {5, 5, 5, 5, 5, 5, 5}; // number of zeros in each column(levels 0-5)
 
+
+/*The following c code represents the connect 4 game in two modes Player vs. Player and PLayer vs. Bot 
+Each player has to input in a column an integer from 1 to 7 (1-2-3-4-5-6-7)
+which will fill the table with a token ( represented by 1 and 2 ) in the corresponding place.
+The objective of the game is to be the first to form a horizontal,
+vertical, or diagonal line of four of one's own tokens. 
+If a player wins the game, the program will print the winner.
+If the bot wins the game, the program will print that the bot won.*/
+
+
+//TEST CASES:
+
+/*Multiplayer mode:
+The code runs for all the cases:
+1) If the player wins or loses:
+-Who wins:
+    First player wins
+    Second player wins
+-How does the player win:
+    Vertical:Insert the following integers: 1-2-1-2-1-2-1
+    Horizontal:Insert the following integers: 1-1-2-1-3-1-4
+    Upper diagonal:Insert the following integers: 1-2-3-4-2-3-4-5-3-4-4
+    Lower diagonal: Insert the following integers: 7-6-5-4-6-5-4-3-6-5-5                                  
+    
+2) If the game is a draw:
+    The winner is based on the speed of the input of the letters: the faster player wins.
+    Insert the following integers: 1 3 2 4 5 6 7 7 6 3 5 4 5 6 1 3 2 1 3 2 4 3 7 4 1 5 2 7 6 7 4 6 7 5 7 5 4 5 1 1 2 2 3 3
+    
+3) If the player inputs a wrong input:
+   example If the input inserts 8 the program will print an error message and will ask the player to insert a new input.
+
+4)The Column is full: 
+    Try inserting: 1-1-1-1-1-1-1 //The program will print that the column is full and ask for another letter
+*/
+
+/*Bot mode:
+There are 3 Difficulty levels:
+1)Easy: The bot will look at depth 3
+2)Medium: The bot will look at depth 5
+3)Hard: The bot will look at depth 12
+
+The code runs for all the cases:
+1) If the player wins or loses:
+-Who wins:
+    First player wins
+    Bot wins
+-How does the player win:
+    Vertical
+    Horizontal
+    Upper diagonal
+    Lower diagonal
+2) If the game is a draw:
+    The winner is based on the speed of the input of the letters: the faster player wins.
+
+3) If the player inputs a wrong input:
+    example If the input inserts 8 the program will print an error message and will ask the player to insert a new input.
+
+4)The Column is full:
+    The program will print that the column is full and ask for another letter
+
+
+*/
+
+
 int main()
 {
     playConnectFour();
