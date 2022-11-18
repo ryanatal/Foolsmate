@@ -1,12 +1,25 @@
-//Functions Header File
-void init_scores();
-void board();
-void choose();
-void fill_bin();
-void Players();
-int check(char disc);
-int checkString(char str1[]);
-int randomizer();
-void Coin();
-void Conditions();
-bool Tie();
+void initializeBoard();
+void display();
+int tossAcoin();
+void playerMove();
+void choose(); 
+void player2move();
+void easyMove();
+void mediumMove();
+void hardMove();
+int favOfPosition();
+int WinOrNot();
+void start();
+int checkVertical();
+int checkHorizontal();
+int checkDiagonalA();
+int checkDiagonalB();
+void playConnectFour();
+typedef struct botMove botMove;
+botMove minimax(); 
+struct botMove
+// This struct is used to return the best move and the score of the best move from the minimax function
+{
+    int column;
+    int score;
+};
